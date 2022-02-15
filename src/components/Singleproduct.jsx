@@ -1,19 +1,28 @@
-import React from 'react'
-import '../styles.css'
+import React from "react";
+import "../styles.css";
 
-const Singleproduct = ({prod}) => {
-    const prod1 = prod
-    console.log("prod1 is",prod1)
+const Singleproduct = ({ prod, cart, setCart }) => {
+  const handleAddToCart = () => {
+    setCart([...cart, prod]);
+  };
+  const handleRemoveFromCart = () => {
+    setCart(cart.filter((c) => c.id !== prod.id));
+  };
   return (
-    <div className='products'>
-        <img src={prod.image} alt={prod.title}/>
-        <div className='prodDesc'>
-            <span style={{fontWeight: 700}}>  {prod.title} </span>
-            <span> $ {prod.price} </span>
-        </div>
-        <button>Add to Cart</button>
-    </div>
-  )
-}
+    <div className="products">
+      <img src={prod.image} alt={prod.title} />
+      <div className="prodDesc">
+        <span style={{ fontWeight: 700 }}> {prod.title} </span>
+        <span> $ {prod.price} </span>
+      </div>
 
-export default Singleproduct
+      {cart.includes(prod) ? (
+        <button onClick={handleRemoveFromCart}>Remove from cart</button>
+      ) : (
+        <button onClick={handleAddToCart}>Add to Cart</button>
+      )}
+    </div>
+  );
+};
+
+export default Singleproduct;
